@@ -107,7 +107,7 @@ class ChangeableMap(MapBase):
         super().__init__(origin_map, seed)
         self.rows      = self.height
         self.cols      = self.width
-        self.cut_times = cut_times + 1
+        self.cut_times = cut_times
         self.changed   = False
     
     def assign_plant(self, proportion=[0.2, 0.2, 0.2, 0.2, 0.2], 

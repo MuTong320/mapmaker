@@ -14,7 +14,7 @@ plt.rcParams["axes.unicode_minus"] = False    #该语句解决图像中的“-�
 class Map(ChangeableMap): 
     """可绘制的，包含城市和河流绘制和指派的地图对象"""
     def __init__(
-        self, map=None, cut_time=1, data_path='data', name=None,
+        self, map=None, cut_time=0, data_path='data', name=None,
         cities=True, rivers=True, seed=None
     ): 
         super().__init__(map, seed, cut_time)
@@ -239,7 +239,7 @@ class Map(ChangeableMap):
             plt.title(title, fontsize=width)
             plt.draw()
             plt.waitforbuttonpress()
-            plt.title('左键选取，右键取消，回车键确认', fontsize=width)
+            plt.title('请依次点击流经点\n左键选取，右键取消，回车键确认', fontsize=width)
             plt.draw()
             self.__pick_river(cover)
             self.__plot_river(figwidth=width)
