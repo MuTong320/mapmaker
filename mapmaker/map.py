@@ -1,11 +1,10 @@
 import os
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from .coloring import ChangeableMap
 from .unit import City, River
-
 
 plt.rcParams["font.sans-serif"] = ["SimHei"]  #设置字体
 plt.rcParams["axes.unicode_minus"] = False    #该语句解决图像中的“-”负号的乱码问题

@@ -1,11 +1,11 @@
 import numpy as np
-from numpy import random
 import pandas as pd
+from numpy import random
 
-from .randombase import RandomBase
 from .altitude import AltitudeMap
-from .noise import Perlin2d
 from .data.color_dict import color_dict
+from .noise import Perlin2d
+from .randombase import RandomBase
 
 
 class MapBase(RandomBase): 

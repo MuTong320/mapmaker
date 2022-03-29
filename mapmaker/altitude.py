@@ -1,7 +1,7 @@
+import matplotlib.pyplot as plt
 import numpy as np
 from numpy import random
 from scipy.signal import convolve2d
-import matplotlib.pyplot as plt
 
 from .noise import Perlin2d
 from .randombase import RandomBase
