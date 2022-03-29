@@ -1,6 +1,6 @@
 # mapmaker: 制作幻想世界的随机地图
 
-![随机大陆地图](随机大陆地图.png)
+![MapMaker](MapMaker制作幻想世界的随机地图.png)
 
 ## 基础生成
 ```python
@@ -74,6 +74,16 @@ In [11]: m.assign('river')  # 继续创建第三条河流
 ```
 
 ![随机大陆地图](随机大陆地图.png)
+
+改变城市和河流的方法：
+* 设置新城市：`set_city`
+* 删除城市：`clear_city`
+* 删除所有城市：`clear_all_city`
+* 重命名城市：`rename_city`
+* 设置新河流：`set_river`
+* 删除河流：`clear_river`
+* 删除所有河流：`clear_all_river`
+* 微调河流：`change_river`
 
 ## 复杂大陆框架创建
 

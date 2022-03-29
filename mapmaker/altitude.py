@@ -11,7 +11,8 @@ class AltitudeMap(RandomBase):
     """高度图自动生成"""
     def __init__(self, name=None, seed=None,
         land_level=0.5, sea_level=0.2, noise_level=0.5, 
-        continent_number=1, slope=5, perlin_cells=(10,10), 
+        continent_number=1, slope=5, width_range=(0.25,0.75), height_range=(0.25,0.75),
+        perlin_cells=(10,10), 
         longtitude_range=100, latitude_range=80, resolution=1, 
         generate=True, generate_sea=True): 
         super().__init__(seed)
@@ -21,6 +22,8 @@ class AltitudeMap(RandomBase):
             self.name       = name
         self.perlin_cells   = perlin_cells
         self.create_number  = continent_number
+        self.width_range    = width_range
+        self.height_range   = height_range
         self.width          = longtitude_range
         self.height         = latitude_range
         self.resolution     = resolution
@@ -73,10 +76,14 @@ class AltitudeMap(RandomBase):
     def create_random_continents(self, number=5, edges=5, base=0.9, wave_scale=0.2): 
         """随机创建多块大陆"""
         randmat = random.rand(number, 2, edges + 4)
+        x0      = self.width_range[0]
+        x1      = self.width_range[1]
+        y0      = self.height_range[0]
+        y1      = self.height_range[1]
         for i in range(number): 
-            xc      = self.range[0] * (0.25 + 0.5*randmat[i,0,-1])
-            yc      = self.range[1] * (0.25 + 0.5*randmat[i,0,-2])
-            d       = min(xc, yc, self.range[0]-xc, self.range[1]-yc)*(0.5*randmat[i,0,-3] + 0.5)
+            xc      = self.width * (x0 + (x1-x0)*randmat[i,0,-1])
+            yc      = self.height * (y0 + (y1-y0)*randmat[i,0,-2])
+            d       = min(xc, yc, self.width-xc, self.height-yc)*(0.5*randmat[i,0,-3] + 0.5)
             w       = 2*randmat[i,0,-4]*wave_scale*d
             randvec = randmat[i,1,: edges] * base**np.arange(edges,0,-1)
             name    = 'Random continent ' + str(i+1)

@@ -70,7 +70,7 @@ class Map(ChangeableMap):
             print(f"File '{self.city_file}' is empty.")
     
     def set_city(self, city_name, city_location): 
-        """设置新城市"""
+        """设置新城市，需给定城市名和位置"""
         c = City(city_location, city_name)
         self.cities.append(c)
         f = open(self.city_file, 'a')
@@ -91,6 +91,11 @@ class Map(ChangeableMap):
         for c in cities:
             self.set_city(c.name, c.location)
     
+    def rename_city(self, old_name, new_name): 
+        """重命名城市"""
+        for c in self.cities: 
+            if c.name in old_name: c.name = new_name
+    
     def read_rivers(self): 
         """从文件中读取河流"""
         self.rivers = []
@@ -105,12 +110,9 @@ class Map(ChangeableMap):
         else: 
             print(f"File '{self.river_file}' is empty.")
     
-    def set_river(self, river_name, keypoints, river_obj=None): 
-        """设置新河流"""
-        if not river_obj: 
-            r = River(keypoints, name=river_name, delta_length=1/2**self.cut_times)
-        else: 
-            r = river_obj
+    def set_river(self, river_name, keypoints): 
+        """设置新河流，给定河流名和流经关键点"""
+        r = River(keypoints, name=river_name, delta_length=1/2**self.cut_times)
         r.save(self.path)
         f = open(self.river_file, 'a')
         name = river_name + '\n'
@@ -135,10 +137,10 @@ class Map(ChangeableMap):
             f.write(river_name)
         f.close()
     
-    def change_river(self, river_name=None): 
+    def change_river(self, *river_names): 
         """微调河流形状，如不给定参数则微调所有河流"""
         for r in self.rivers: 
-            if (not river_name) or (river_name == r.name): 
+            if (not river_names) or (r.name in river_names): 
                 r.full_random()
                 r.save()
         self.read_rivers()
@@ -159,7 +161,7 @@ class Map(ChangeableMap):
 
     def plot(self, 
         which=None, width=None, height=None, dpi=None, 
-        title=None, river=True,  city=True, grid=False, save=True): 
+        title=None, river=True,  city=True, grid=False, axis=True, save=True): 
         """画地图"""
         if not which: 
             if self.changed: self.__generate_image()
@@ -184,10 +186,17 @@ class Map(ChangeableMap):
         if river: self.__plot_river(figwidth=width)
         if city:  self.__plot_city(figwidth=width)
         if grid:  plt.grid()
+        if not axis: plt.axis('off')
         if save: 
-            name = title + '.png'
+            name = self.__check_name(title) + '.png'
             plt.savefig(name)
         plt.show()
+
+    def __check_name(self, name):
+        new_name = name
+        for s in ('<', '>', '/', '\\', '|', ':', '*', '?', ' ', '.'):
+            new_name = new_name.replace(s, '')
+        return new_name
 
     def __set_figsize(self, width, height):
         if (not width) and (not height): 
@@ -221,7 +230,6 @@ class Map(ChangeableMap):
         plt.imshow(self.image, extent=self.range, zorder=1)
         self.__plot_river(figwidth=width)
         self.__plot_city(figwidth=width)
-        plt.grid()
         if assign == 'city': 
             title = '点击地图开始创建城市'
             if cover: title += '（注意：点击地图将清空旧的城市数据）'
