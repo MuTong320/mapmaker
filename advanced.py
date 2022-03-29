@@ -11,10 +11,7 @@ p = AltitudeMap(
 
 m = Map(p, name='多块大陆', seed='2222')
 m.polish(3)
-
-m.assign('city')
-m.assign('river')
-m.assign('river')
-m.assign('river')
+#m.assign('city')
+#m.assign('river')
 
 m.plot(title='MapMaker: 制作幻想世界的随机地图', axis=False)

@@ -154,7 +154,7 @@ class Map(ChangeableMap):
         if type(map) == np.ndarray: 
             return np.array(np.vectorize(lambda x: lst[x])(map)).transpose(1,2,0)
 
-    def set_figure(self, width=20, dpi=300): 
+    def set_figure(self, width=20, dpi=72): 
         """设置图片尺寸和分辨率"""
         self.figsize = (width, width*self.rows/self.cols)
         self.figdpi  = dpi
