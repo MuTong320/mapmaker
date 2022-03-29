@@ -3,6 +3,9 @@
 ![MapMaker](MapMaker制作幻想世界的随机地图.png)
 
 ## 基础生成
+
+> <font color = Red>注意：需要安装 numpy 和 matplotlib。</font>
+
 ```python
 # 最简单地图生成
 In [1]: from mapmaker import Map
