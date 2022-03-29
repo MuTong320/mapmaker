@@ -2,16 +2,24 @@
 
 ![MapMaker](MapMaker制作幻想世界的随机地图.png)
 
+**目录**
+
+1. 基础生成
+
+1. 指派河流和城市
+
+1. 高级生成
+
 ## 基础生成
 
-> <font color = Red>注意：需要安装 numpy 和 matplotlib。</font>
+> **注意：需要安装 numpy 和 matplotlib。**
+
+将 `mapmaker` 放入希望生成地图的工作目录中，创建新的 `.py` 文件或 `.ipynb` 文件。只需要输入如下三行命令即可获得最简单的地图
 
 ```python
 # 最简单地图生成
 In [1]: from mapmaker import Map
-
 In [2]: m = Map()
-
 In [3]: m.plot()
 ```
 ![未命名地图](未命名地图.png)
@@ -54,18 +62,19 @@ mapmaker 提供了自动优化地图的方法 `polish`，其参数包含优化�
 ```python
 # 自动优化地图
 In [6]: m.polish(3) # 优化3次
-In [7]: m.plot()
 ```
 
 绘制地图将默认保存该地图。
 ```python
-In [7]: m.plot()
+In [7]: m.plot() # 绘制地图的同时会保存地图，除非参数 save=False
 ```
 ![无城市河流](无城市河流.png)
 
 ## 指派城市和河流
 
-> <font color = Red>注意：指派城市和河流无法在 jupyter notebook 中进行。如使用 jupyter notebook 绘制地图，可另外使用一个 python 文件绘制城市和河流，数据将会储存在 data 文件中。重新在 jupyter notebook 创建同名地图时，会自动读取城市和河流数据并绘制。</font>
+> **注意：指派城市和河流无法在 jupyter notebook 中进行。**
+>  
+> 如使用 jupyter notebook 绘制地图，可另外使用一个 python 文件绘制城市和河流，数据将会储存在 data 文件中。重新在 jupyter notebook 创建同名地图时，会自动读取城市和河流数据并绘制。
 
 使用 `assign` 方法创建城市或河流，按照地图标题指示选点即可创建。一次可以创建多个城市，但只能创建一条河流。
 
@@ -88,7 +97,7 @@ In [11]: m.assign('river')  # 继续创建第三条河流
 * 删除所有河流：`clear_all_river`
 * 微调河流：`change_river`
 
-## 复杂大陆框架创建
+## 高级生成
 
 生成复杂大陆时，需要首先生成高度图，导入 `AltitudeMap` 类。
 ```python
