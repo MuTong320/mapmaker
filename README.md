@@ -90,6 +90,36 @@ In [11]: m.assign('river')  # 继续创建第三条河流
 
 ## 复杂大陆框架创建
 
-![多块大陆地图](多块大陆地图.png)
+生成复杂大陆时，需要首先生成高度图，导入 `AltitudeMap` 类。
+```python
+In [1]: from mapmaker import AltitudeMap, Map
+```
 
-![陆地地图](多块大陆的陆地地图.png)
+最简单的生成多块大陆的方法是
+```python
+In [2]: p = AltitudeMap(continent_number=3)
+```
+
+此外，还有其他可调参数：
+```python
+In [2]: p = AltitudeMap(
+        name='s7777', seed=7777,
+        land_level=0.5, sea_level=0.2, noise_level=0.5, 
+        continent_number=3, slope=5, width_range=(0.25,0.75), height_range=(0.25,0.75),
+        perlin_cells=(20,10), 
+        longtitude_range=200, latitude_range=80, resolution=1
+)
+```
+
+通过 `print` 和 `plot` 了解生成结果。
+```python
+print(p)
+p.plot('all')
+```
+
+确认生成结果后，根据高度图建立地图
+```python
+m = Map(p, name='多块大陆', seed='2222')
+```
+
+![多块大陆地图](多块大陆地图.png)
